@@ -5,17 +5,13 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
-@Setter
-@Getter
 @Slf4j
+@NoArgsConstructor
 @SuperBuilder
-@AllArgsConstructor
 public class CommonDTO {
 
 	private static ObjectMapper mapper;

@@ -1,16 +1,11 @@
 package com.sdc.sns.service.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Getter
-@Setter
-@SuperBuilder
-@AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 public class CrudDTO extends CommonDTO{
 
 	private String crudMode;

@@ -1,8 +1,9 @@
 package com.sdc.sns.controller;
 
-import com.sdc.sns.service.mdm.user.UserEntity;
-import com.sdc.sns.service.mdm.user.UserService;
-import com.sdc.sns.service.mdm.user.dto.UserDTO;
+import com.sdc.sns.biz.UserBizService;
+import com.sdc.sns.domain.user.UserEntity;
+import com.sdc.sns.domain.user.UserService;
+import com.sdc.sns.domain.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,8 @@ public class UserController {
 
 	private final UserService userService;
 
+	private final UserBizService userBizService;
+
 	@GetMapping("/paging")
 	public Page<UserDTO> getUserPagingList(UserDTO dto, Pageable paging) {
 		return userService.getUserPagingList(dto, paging);
@@ -29,30 +32,24 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public UserDTO getUserList(@PathVariable("id") String id) {
-		return userService.getDetailById(id, UserDTO.class);
+	public UserDTO getUserList(@PathVariable("id") Long id) {
+		return userService.getUserById(id);
 	}
 
 	@RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
 	public UserEntity saveUser(@RequestBody UserDTO dto) {
-		return userService.save(dto);
+		return userService.saveUser(dto);
 	}
 
 	@PatchMapping
 	public UserEntity patchUser(@RequestBody UserDTO dto) {
-		return userService.patch(dto);
+		return userBizService.saveUserWithNameChangeHistory(dto);
 	}
-
-	@DeleteMapping
-	public void deleteUser(@RequestBody UserDTO dto) {
-		userService.delete(dto);
-	}
-
-	//다중일 경우에 대해서는 /list는 명칭을 붙여 처리.
-	@PostMapping("/list")
-	public void saveUserList(@RequestBody List<UserDTO> saveUserList) {
-		userService.saveUserList(saveUserList);
-	}
+//
+//	@DeleteMapping
+//	public void deleteUser(@RequestBody UserDTO dto) {
+//		userService.delete(dto);
+//	}
 
 	@RequestMapping(method = RequestMethod.TRACE)
 	public UserDTO trace(UserDTO dto) {

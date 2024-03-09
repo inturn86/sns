@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.convention.NameTokenizers;
 import org.modelmapper.spi.MatchingStrategy;
@@ -32,6 +33,10 @@ public class ModelMapperUtils {
 				.setMatchingStrategy(type.getMatchingStrategies())
 				.setSourceNameTokenizer(NameTokenizers.UNDERSCORE)
 				.setDestinationNameTokenizer(NameTokenizers.UNDERSCORE)
+				//setter가 없으면 동작하지 않는 부분을 AccessLevel을 private으로 변경하여 해결
+				.setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
+				//private 필드에 접근할 수 있도록 설정
+				.setFieldMatchingEnabled(true)
 				.setSkipNullEnabled(true);
 		return mapper;
 	}
