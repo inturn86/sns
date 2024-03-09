@@ -1,9 +1,9 @@
 package com.sdc.sns.service.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,24 +13,24 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @SuperBuilder
-@AllArgsConstructor
 @NoArgsConstructor
+@MappedSuperclass
 public class DefaultDTO extends CrudDTO{
 
-	private String regDay;
-
-	@CreatedBy
-	private String regId;
-
 	@CreatedDate
-	private LocalDateTime regDt;
-
-	@LastModifiedBy
-	private String modId;
+	private LocalDateTime createdDt;
 
 	@LastModifiedDate
-	private LocalDateTime modDt;
+	private LocalDateTime updatedDt;
 
+	@PrePersist
+	public void prePersist(){
+		this.createdDt = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	public void preUpdate(){
+		this.updatedDt = LocalDateTime.now();
+	}
 }
