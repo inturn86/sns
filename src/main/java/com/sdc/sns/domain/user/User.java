@@ -14,16 +14,16 @@ public class User extends DefaultDTO{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userId;
+	protected Long userId;
 
 	@Column(nullable = false)
-	private String userName;
+	protected String userName;
 
 	@Column(nullable = false)
-	private String password;
+	protected String password;
 
 	@Column(nullable = false)
-	private String email;
+	protected String email;
 
-	private String phone;
+	protected String phone;
 }

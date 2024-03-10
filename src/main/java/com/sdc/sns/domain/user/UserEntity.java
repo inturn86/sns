@@ -12,5 +12,4 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Entity(name = "user")
 public class UserEntity extends User {
-
 }

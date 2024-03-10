@@ -14,4 +14,5 @@ public interface UserRepositoryDsl {
 	List<UserDTO> getUserList(UserDTO param, Sort sort);
 	Page<UserDTO> getUserPagingList(UserDTO param, Pageable pageable);
 
+	UserEntity getUserByEmail(String email);
 }

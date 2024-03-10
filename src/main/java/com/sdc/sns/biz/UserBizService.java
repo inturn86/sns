@@ -21,7 +21,9 @@ public class UserBizService {
 
 	@Transactional
 	public UserEntity saveUserWithNameChangeHistory(UserDTO param) {
-		UserDTO user = userService.getUserById(param.getUserId());
+		//userId를 바로 받는 것이 아니고 email을 받아서 해당 id를 조회
+		UserEntity user = userService.getUserByEmailWithDsl(param.getEmail());
+
 		//이름이 기존과 같다면.
 		if(StringUtils.equals(user.getUserName(), param.getUserName())) {
 			//return user;
@@ -29,7 +31,12 @@ public class UserBizService {
 			throw new RuntimeException("이미 현재 이름과 같습니다.");
 		}
 
-		var changeUser = userService.patchUser(param);
+		var changeUser = userService.patchUser(UserDTO.builder().userId(user.getUserId())
+				.userName(param.getUserName())
+				.email(user.getEmail())
+				.phone(user.getPhone())
+				.password(user.getPassword())
+				.build());
 
 		userNameChangeHistoryService.addUserNameChangeHistory(user.getUserId(), user.getUserName(), param.getUserName());
 

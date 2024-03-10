@@ -74,7 +74,7 @@ public class UserRepositoryDslImpl extends CustomQuerydslRepositorySupport imple
 	public List<UserDTO> getUserList(UserDTO param) {
 		return from(qUser)
 				.where()
-				.select(Projections.bean(UserDTO.class,
+				.select(Projections.fields(UserDTO.class,
 						qUser.userId,
 						qUser.userName,
 						qUser.email,
@@ -84,5 +84,12 @@ public class UserRepositoryDslImpl extends CustomQuerydslRepositorySupport imple
 				))
 				.orderBy(qUser.userId.desc())
 				.fetch();
+	}
+
+	@Override
+	public UserEntity getUserByEmail(String email) {
+		return from(qUser)
+				.where(qUser.email.eq(email))
+				.fetchFirst();
 	}
 }

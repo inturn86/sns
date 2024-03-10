@@ -26,6 +26,14 @@ public class UserService  {
 		return userRepository.findById(userId).map(this::toDTO).orElseThrow(() -> new RuntimeException("Not found user"));
 	}
 
+	public UserEntity getUserByEmailWithDsl(String email) {
+		return userRepository.getUserByEmail(email);
+	}
+
+	public UserEntity getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
 	public UserEntity patchUser(UserDTO param) {
 
 		UserEntity user = new UserEntity();
