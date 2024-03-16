@@ -23,6 +23,7 @@ public class UserBizService {
 	public UserEntity saveUserWithNameChangeHistory(UserDTO param) {
 		//userId를 바로 받는 것이 아니고 email을 받아서 해당 id를 조회
 		UserEntity user = userService.getUserByEmailWithDsl(param.getEmail());
+		log.error("test");
 
 		//이름이 기존과 같다면.
 		if(StringUtils.equals(user.getUserName(), param.getUserName())) {
